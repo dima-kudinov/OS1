@@ -23,10 +23,11 @@ namespace OS1
             SystemCalls[4] = new SystemCall(
                 new List<string> { "arg", "arg", "arg", "arg", "arg" });
         }
-        int countA = 0;
+        
 
         public void ExecuteCall(int id)
         {
+            int countA = 0;
             Console.WriteLine("Пытаюсь вызвать системный вызов № " + id );
 
             if (!SystemCalls.ContainsKey(id))
@@ -81,18 +82,27 @@ namespace OS1
                         return;
                     }
                     
+
                 }
 
             }
 
             if (stack.Pop() != null)
             {
+                countA++;
+                while (stack.Pop() != null)
+                    countA++;
+
                 Console.WriteLine("Агрументов введено больше, ожидалось " + SystemCalls[id].Arguments.Count() + ", получено " + countA);
                 countA = 0;
                 return;
             }
-            
+            countA = 0;
             Console.WriteLine(SystemCalls[id].Execute());
+            while (stack.Pop() != null)
+            {
+                stack.Pop();
+            }          
         }
 
         public void Calls()

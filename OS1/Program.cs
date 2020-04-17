@@ -28,6 +28,7 @@ namespace OS1
 
             stack.Push("arg");
             stack.Push("arg");
+            stack.Push("arg");
             core.ExecuteCall(0);
 
             stack.Push("arm");
